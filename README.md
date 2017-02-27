@@ -64,7 +64,7 @@ npm test
 
 * This will be your first lab where you will be building a front-end and back-end!
 
-* Front-end:
+### Front-end:
 
 * You will build your front-end in the `client` folder
 
@@ -96,7 +96,7 @@ npm test
 
 * Once the server sends a response, make the new tweet show up in the tweet list
 
-* Back-end:
+### Back-end:
 
 * You will build an HTTP server using NodeJS
 
