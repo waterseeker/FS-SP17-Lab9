@@ -11,6 +11,7 @@ $(document).ready(function () {
         $('input[type="text"]').val(''); //clear the input field
         $('button').prop('disabled', true); //disable the chirp button
     })
+    
 
     function postData() {
         var newChirp = { //creates a newChirp object with the fields...
@@ -31,7 +32,6 @@ $(document).ready(function () {
                 console.log("APPENDING");
                 $('<div class="chirp"></div>').text(newChirp.message).appendTo(
                     $("#posts")
-
                 ), function (err) {
                     console.log(err);
                 };
@@ -41,7 +41,11 @@ $(document).ready(function () {
             });
     }
 
-
+$('.course').click(function(e){
+    $("#dateForm").fadeOut("slow", function() { // code to run after the fadeOut is complete
+        $(this).appendTo(e.target).fadeIn('slow');
+    })
+});
 
     function getData() {
         console.log("Front end is GETTING data from the server");
