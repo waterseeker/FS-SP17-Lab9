@@ -6,9 +6,7 @@ var path = require('path');
 var server = http.createServer(function (req, res) {
     //breaks the URL up into pieces so I can use them
     var parsedURL = url.parse(req.url, true);
-    // console.log(parsedURL);
     //if the URL path is a slash
-    console.log(parsedURL.pathname);
     if (parsedURL.pathname == "/") {
         //sets the var to the path name that leads to index.html
         var htmlPath = path.join(__dirname, "..", "client", "index.html");
@@ -54,24 +52,7 @@ var server = http.createServer(function (req, res) {
             }
         })
     }
-    else if (parsedURL.pathname == "/api/chirps") {
-        var filePath = path.join(__dirname, "..", "server", "data.json");
-        if (req.method === "GET") {
-            fs.readFile(filePath, function (err, data) {
-                if (err) {
-                    console.log("Couldn't load the data.json file");
-                } else {
-                    res.writeHead(200, {
-                        "Content-Type": "application/json"
-                    });
-                    res.write(data);
-                    res.end();
-                }
-            })
-        }
-    }
     else if (parsedURL.pathname == "/resources/chirper-background.jpg") {
-        console.log("Yep ye");
         var imgPath = path.join(__dirname, "..", "client", "resources", "chirper-background.jpg");
         fs.readFile(imgPath, function (err, data) {
             if (err) {
@@ -85,6 +66,21 @@ var server = http.createServer(function (req, res) {
             }
         })
     }
+        else if (parsedURL.pathname == "/api/chirps") {
+        var filePath = path.join(__dirname, "..", "server", "data.json");
+        if (req.method === "GET") {
+            fs.readFile(filePath, function (err, data) {
+                if (err) {
+                    console.log("Couldn't load the data.json file");
+                } else {
+                    res.writeHead(200, {
+                        "Content-Type": "application/json"
+                    });
+                    res.write(data);
+                    res.end();
+                }
+            })
+        } 
     else if (req.method === "POST") {
         console.log('making a post request');
         //set empty value for the new chirp
@@ -96,8 +92,8 @@ var server = http.createServer(function (req, res) {
         //when you end this, 
         req.on('end', function () {
             console.log('POSTing to the front end');
-            fs.readFile(filePath, function (err, data) {
-                console.log(filePath);
+            fs.readFile(filePath, 'utf8', function (err, data) {
+                // console.log(filePath);
                 if (err) {
                     console.log("POST to front end failed");
                 } else {
@@ -121,6 +117,7 @@ var server = http.createServer(function (req, res) {
             });
         })
     }
+        }
     else {
     console.log("Nope, couldn't find: " + parsedURL.pathname)
     res.writeHead(404, {

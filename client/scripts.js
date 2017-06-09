@@ -14,6 +14,7 @@ $(document).ready(function () {
     
 
     function postData() {
+        // console.log($('#inputChirp').val());
         var newChirp = { //creates a newChirp object with the fields...
             message: $('#inputChirp').val(), //message, that gets the content of the chirp field
             user: "userName", //userName that gets a default right now
@@ -30,7 +31,7 @@ $(document).ready(function () {
         })
             .then(function (success) {
                 console.log("APPENDING");
-                $('<div class="chirp"></div>').text(newChirp.message).appendTo(
+                $('<div class="chirp"></div>').text((newChirp.message) + "   -" + (newChirp.user) + "-").appendTo(
                     $("#posts")
                 ), function (err) {
                     console.log(err);
@@ -40,12 +41,6 @@ $(document).ready(function () {
                 console.log(error);
             });
     }
-
-$('.course').click(function(e){
-    $("#dateForm").fadeOut("slow", function() { // code to run after the fadeOut is complete
-        $(this).appendTo(e.target).fadeIn('slow');
-    })
-});
 
     function getData() {
         console.log("Front end is GETTING data from the server");
@@ -57,7 +52,7 @@ $('.course').click(function(e){
             // console.log(success); test to see the new chirps object
             $('#posts').empty();
             for (i = 0; i < success.length; i++) {
-                $('<div class="chirp"></div>').text(success[i].message + "   -" + success[i].user + "-").appendTo($('#posts'));
+                $('<div class="chirp"></div>').text((success[i].message) + "   -" + (success[i].user) + "-").appendTo($('#posts'));
             }
         })
     }
